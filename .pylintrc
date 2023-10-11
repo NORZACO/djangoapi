@@ -1,0 +1,32 @@
+
+
+
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--disable=all",
+        ; "--enable=unused-import",
+        ; "--enable=wrong-import-position",
+        ; "--enable=invalid-name",
+        ; "--enable=missing-docstring",
+        ; "--enable=fixme",
+        ; "--enable=consider-using-enumerate",
+        ; "--enable=similarities",
+        ; "--enable=redefined-outer-name",
+        ; "--enable=logging-format-interpolation",
+        ; "--enable=too-many-arguments",
+        ; "--enable=too-many-instance-attributes",
+        ; "--enable=too-many-locals",
+        ; "--enable=too-many-public-methods",
+        ; "--enable=too-many-lines",
+        ; "--enable=too-many-statements",
+        ; "--enable=bad-continuation",
+        ; "--enable=bad-whitespace",
+        ; "--enable=line-too-long",
+        ; "--enable=too-few-public-methods",
+        ; "--enable=trailing-whitespace",
+        ; "--max-line-length=120",
+        ; "--ignore-imports=yes",
+        ; "--disable=missing-final-newline"
+    ]
+}
