@@ -1,23 +1,31 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    CreateAPIView,
+    # RetrieveAPIView,
+    UpdateAPIView,
+    # DestroyAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 from store.serialisers.products_serialiser import ProductSerialiser
 from store.models.products_models import Product
+
 # filter
 from django_filters.rest_framework import DjangoFilterBackend
+
 # search
 from rest_framework.filters import SearchFilter
+
 # paginantion
 from rest_framework.pagination import LimitOffsetPagination
+
 # validation
 from rest_framework.exceptions import ValidationError
-
 
 
 # product pagination
 class ProductPagination(LimitOffsetPagination):
     default_limit = 10
     max_limit = 100
-
-
 
 
 class ProductListAPIView(ListAPIView):
@@ -46,9 +54,11 @@ class ProductListAPIView(ListAPIView):
             )
         return queryset
 
+
 # creaye product
 class ProductCreateAPIView(CreateAPIView):
     serializer_class = ProductSerialiser
+
     # create method
     def create(self, request, *args, **kwargs):
         try:
@@ -58,11 +68,6 @@ class ProductCreateAPIView(CreateAPIView):
         except ValueError:
             raise ValidationError({"price": "A valid number is required"})
         return super().create(request, *args, **kwargs)
-    
-
-
-
-
 
 
 # destroy product version 1
@@ -80,11 +85,10 @@ class ProductCreateAPIView(CreateAPIView):
 #             from django.core.cache import cache
 #             cache.delete("product_data_{}".format(product_id))
 #         return response
-    
 
 
 # product retrieve update and destroy version 2
-class ProductRetrieveUpdateDestroyAPIView( RetrieveUpdateDestroyAPIView):
+class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerialiser
     lookup_field = "id"
@@ -96,6 +100,7 @@ class ProductRetrieveUpdateDestroyAPIView( RetrieveUpdateDestroyAPIView):
         if response.status_code == 204:
             # delete cache based on product id
             from django.core.cache import cache
+
             cache.delete("product_data_{}".format(product_id))
         return response
 
@@ -105,16 +110,18 @@ class ProductRetrieveUpdateDestroyAPIView( RetrieveUpdateDestroyAPIView):
         if response.status_code == 200:
             # delete cache based on product id
             from django.core.cache import cache
+
             product = response.data
-            cache.set("product_data_{}".format(product["id"]), {
-                # STORE INFOTMATION IN CACHE
-                "name": product["name"],
-                "description": product["description"],
-                "price": product["price"],
-            })
+            cache.set(
+                "product_data_{}".format(product["id"]),
+                {
+                    # STORE INFOTMATION IN CACHE
+                    "name": product["name"],
+                    "description": product["description"],
+                    "price": product["price"],
+                },
+            )
         return response
-
-
 
 
 # update product
@@ -129,14 +136,17 @@ class ProductUpdateAPIView(UpdateAPIView):
         if response.status_code == 200:
             # delete cache based on product id
             from django.core.cache import cache
+
             product = response.data
-            cache.set("product_data_{}".format(product["id"]), {
-                "name": product["name"],
-                "description": product["description"],
-                "price": product["price"],
-            })
+            cache.set(
+                "product_data_{}".format(product["id"]),
+                {
+                    "name": product["name"],
+                    "description": product["description"],
+                    "price": product["price"],
+                },
+            )
         return response
-    
+
 
 # retrieve product
-
