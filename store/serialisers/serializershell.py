@@ -1,8 +1,10 @@
 from store.models import Product
 from rest_framework.renderers import JSONRenderer
+
 product = Product.objects.all()[0]
 
-from store.serialiser import ProductSerialiser
+from store.serialisers.products_serialiser import ProductSerialiser
+
 serialiser = ProductSerialiser()
 data = serialiser.to_representation(product)
 print(data)
@@ -11,4 +13,3 @@ print(data)
 # JSONRenderer
 renderer = JSONRenderer()
 print(renderer.render(data))
-

@@ -1,22 +1,40 @@
-
 {% extends "base.html" %}
 {% block title %}Products{% endblock %}
 {% block content %}
-<div class="product-list">
-  {% for product in products %}
-  <div class="product">
-    <h3>{{ product.name }}</h3>
-    {% if product.photo %}
-    <p>
-      <a href="{% url 'show-product' product.id %}">
-        <img width="500" src="{{ product.photo.url }}" />
-      </a>
-    </p>
-    {% endif %}
-    <p>
-      <a href="{% url 'show-product' product.id %}">View</a>
-    </p>
+ <br><br><br>
+ 
+<div class="container">
+  <div class="row">
+    <div class="col-md-12"
+    style="text-align:center">
+      <h1>Products</h1>
+    </div>
   </div>
-  {% endfor %}
+  <br><br><br>
+
+  <div class="row">
+    <div class="col-md-12">
+      {% comment %} <a href="{% url 'create-product' %}" class="btn btn-primary">Create</a> {% endcomment %}
+    </div>
+  </div>
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-4">
+      <div class="card mb-4">
+        {% if product.photo %}
+        <img class="card-img-top" src="{{ product.photo.url }}" alt="{{ product.name }}" height="300px">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">
+            <a href="{% url 'show-product' product.id %}" class="btn btn-primary">View</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
+
+
