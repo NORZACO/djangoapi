@@ -13,7 +13,14 @@ urlpatterns = [
 urlpatterns += [
     path("api/v1/products/", product_views_api.ProductListAPIView.as_view()),
     path("api/v1/products/create", product_views_api.ProductCreateAPIView.as_view()),
-    path("api/v1/products/<int:id>/destroy", product_views_api.ProductDestroyAPIView.as_view()),
+    path(
+        "api/v1/products/<int:id>/destroy",
+        product_views_api.ProductDestroyAPIView.as_view(),
+    ),
+    path(
+        "api/v1/products/<int:id>/",
+        product_views_api.ProductRetrieveUpdateDestroyAPIView.as_view(),
+    ),
     # quizy
     path("api/v1/quizy/", quizy_views_api.QuizyListAPIView.as_view()),
 ]

@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, RetrieveUpdateDestroyAPIView
 from store.serialisers.products_serialiser import ProductSerialiser
 from store.models.products_models import Product
 # filter
@@ -65,8 +65,26 @@ class ProductCreateAPIView(CreateAPIView):
 
 
 
-# destroy product
-class ProductDestroyAPIView(DestroyAPIView):
+# destroy product version 1
+# class ProductDestroyAPIView(DestroyAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerialiser
+#     lookup_field = "id"
+
+#     # delete method
+#     def delete(self, request, *args, **kwargs):
+#         product_id = request.data.get("id")
+#         response = super().delete(request, *args, **kwargs)
+#         if response.status_code == 204:
+#             # delete cache based on product id
+#             from django.core.cache import cache
+#             cache.delete("product_data_{}".format(product_id))
+#         return response
+    
+
+
+# product retrieve update and destroy version 2
+class ProductRetrieveUpdateDestroyAPIView( RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerialiser
     lookup_field = "id"
@@ -80,4 +98,45 @@ class ProductDestroyAPIView(DestroyAPIView):
             from django.core.cache import cache
             cache.delete("product_data_{}".format(product_id))
         return response
+
+    # update method || Creating an UpdateAPIView subclass
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        if response.status_code == 200:
+            # delete cache based on product id
+            from django.core.cache import cache
+            product = response.data
+            cache.set("product_data_{}".format(product["id"]), {
+                # STORE INFOTMATION IN CACHE
+                "name": product["name"],
+                "description": product["description"],
+                "price": product["price"],
+            })
+        return response
+
+
+
+
+# update product
+class ProductUpdateAPIView(UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerialiser
+    lookup_field = "id"
+
+    # update method
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        if response.status_code == 200:
+            # delete cache based on product id
+            from django.core.cache import cache
+            product = response.data
+            cache.set("product_data_{}".format(product["id"]), {
+                "name": product["name"],
+                "description": product["description"],
+                "price": product["price"],
+            })
+        return response
     
+
+# retrieve product
+
