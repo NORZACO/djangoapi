@@ -13,6 +13,14 @@ class Product(models.Model):
     sale_end = models.DateTimeField(blank=True, null=True, default=None)
     photo = models.ImageField(blank=True, null=True, default=None, upload_to="products")
 
+
+    # shorted description
+    def short_description(self):
+        if len(self.description) > 50:
+            return self.description[:50] + "..."
+        return self.description
+    
+
     def is_on_sale(self):
         now = timezone.now()
         if self.sale_start:
