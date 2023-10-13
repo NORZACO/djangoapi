@@ -129,3 +129,8 @@ cython_debug/
 
 
 store/migrations/
+store/uploads
+store/__pycache__
+media
+venv
+

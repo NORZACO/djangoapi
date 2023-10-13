@@ -1,5 +1,5 @@
-from rest_framework.generics import ListAPIView, CreateAPIView
-# RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView  
+#RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from store.serialisers.products_serialiser import ProductSerialiser
 from store.models.products_models import Product
 # filter
