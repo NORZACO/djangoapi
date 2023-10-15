@@ -2,47 +2,38 @@ from rest_framework import serializers
 from store.models.products_models import Product, ShoppingCartItem
 
 
-
-
-
-class CartItemSerialiser(serializers.Serializer):
+class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShoppingCartItem
-        fields = ("id", "quantity", "product")
-
-
+        fields = (
+            "quantity",
+            "product",
+        )
 
 
 class ProductSerialiser(serializers.ModelSerializer):
+    #DEFINE WHAT FIELDS WE WANT TO SERIALIZE FROM THE PRODUCT MODEL
     # the attributes that we set in the two representation method and refactor them using serializer fields.  # noqa: E501
-    """work like a to_representation method in the Product model class"""
+    # """work like a to_representation method in the Product model class"""
     is_on_sale = serializers.BooleanField(read_only=True)
     current_price = serializers.FloatField(read_only=True)
-    # get_rounded_price = serializers.FloatField(read_only=True)
     description = serializers.CharField(min_length=2, max_length=200)
-    # carrt items
-
+    # photo = serializers.ImageField(default=None, max_length=None, allow_empty_file=True, use_url=True)  # noqa: E501
 
     class Meta:
         model = Product
-        fields = (
-            "id",
-            "name",
-            "description",
-            "price",
-            "sale_start",
-            "sale_end",
-            "is_on_sale",
-            # "get_rounded_price",
-            "current_price",
-        ) 
+        # fields = ("id", "name", "description", "price", "sale_start", "sale_end", "is_on_sale", "current_price", "cart_items")  # noqa: E501
+        fields = ("id", "name", "description", "price", "sale_start", "sale_end", "is_on_sale", "current_price")  # noqa: E501
 
-        # def  get cart items
+        # AttributeError: 'ProductSerialiser' object has no attribute 'get_cart_items'
         def get_cart_items(self, instance):
             items = ShoppingCartItem.objects.filter(product=instance)
-            return CartItemSerialiser(items, many=True).data
-        
+            return CartItemSerializer(items, many=True).data
 
+        # Not included field('photo', # 'is_on_sale', # 'current_price', # 'get_rounded_price',)  # noqa: E501
+        # def get_cart_items(self, instance):
+        #     items = ShoppingCartItem.objects.filter(product=instance)
+        #     return CartItemSerializer(items, many=True).data
 
         # Not included field('photo', # 'is_on_sale', # 'current_price', # 'get_rounded_price',)  # noqa: E501
         # read_only_fields = ('is_on_sale', 'current_price', 'get_rounded_price',)
@@ -53,3 +44,5 @@ class ProductSerialiser(serializers.ModelSerializer):
         #     data["current_price"] = instance.current_price()
         #     data["get_rounded_price"] = instance.get_rounded_price()
         #     return data
+
+        # AttributeError: 'ProductSerialiser' object has no attribute 'get_cart_items'

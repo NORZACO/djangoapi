@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Express and Folium Example</title>
+    <!-- Include Folium CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+  </head>
+  <body>
+    <!-- Your map container -->
+    <div id="map" style="height: 400px"></div>
+
+    <!-- Include Folium JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/folium@0.12.1/folium.js"></script>
+
+    <script>
+      // Initialize the map
+      var map = L.map("map").setView([51.505, -0.09], 13);
+
+      // Create a Folium map
+      var foliumMap = L.map("map").setView([51.505, -0.09], 13);
+
+      // Add some markers or other map elements
+      L.marker([51.5, -0.09]).addTo(foliumMap).bindPopup("A sample marker.");
+
+      // Render the map
+      foliumMap.addTo(map);
+    </script>
+  </body>
+</html>

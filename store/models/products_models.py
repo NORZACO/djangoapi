@@ -4,7 +4,6 @@ from django.db import models
 
 class Product(models.Model):
     DISCOUNT_RATE = 0.10
-
     # id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -14,12 +13,6 @@ class Product(models.Model):
     photo = models.ImageField(blank=True, null=True, default=None, upload_to="products")
 
 
-    # shorted description
-    def short_description(self):
-        if len(self.description) > 50:
-            return self.description[:50] + "..."
-        return self.description
-    
 
     def is_on_sale(self):
         now = timezone.now()
@@ -37,9 +30,17 @@ class Product(models.Model):
             discounted_price = self.price * (1 - self.DISCOUNT_RATE)
             return round(discounted_price, 2)
         return self.get_rounded_price()
+    
+    #  get_price
+    def get_price(self):
+        return self.current_price()
 
     def __repr__(self):
         return '<Product object ({}) "{}">'.format(self.id, self.name)
+    
+
+    # def __str__(self):
+    #     return self.name
 
 
 class ShoppingCart(models.Model):
@@ -84,3 +85,25 @@ class ShoppingCartItem(models.Model):
         return '<ShoppingCartItem object ({}) {}x "{}">'.format(
             self.id, self.quantity, self.product.name
         )
+    
+
+
+    # address model associated with the shopping cart model
+    # class Address(models.Model):
+    #     street = models.CharField(max_length=200)
+    #     city = models.CharField(max_length=200)
+    #     state = models.CharField(max_length=200)
+    #     zip_code = models.CharField(max_length=200)
+    #     country = models.CharField(max_length=200)
+    #     shopping_cart = models.OneToOneField(
+    #         ShoppingCart, on_delete=models.CASCADE, related_name="address"
+    #     )
+
+    #     def __repr__(self):
+    #         return '<Address object ({}) "{} {}">'.format(
+    #             self.id, self.street, self.city
+    #         )
+
+    #     def __str__(self):
+    #         return self.street
+

@@ -24,15 +24,23 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("store.urls")),
     # path("", include("rest_framework.urls")),
-    path("api-auth/", include('rest_framework.urls', namespace='rest_framework')),
+    # path("api-auth/", include('rest_framework.urls', namespace='rest_framework')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
-# rest_framework api
-# urlpatterns += [
-#     path("", include("rest_framework.urls")),
-# ]
 
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # degub
+    
+
+
+
+
+
+# <p style="text-align: center;">
+#     <img src="/media/uploads/2023/10/14/image-20231014161803-1.png" style="max-width: 100%; height: auto;" />  # noqa: E501
+# </p>

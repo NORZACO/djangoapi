@@ -48,15 +48,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "store.apps.StoreConfig",
 ]
 
 # THIRT_PARTY_APPS
 INSTALLED_APPS += [
-    'rest_framework',
-    'django_filters',
-
+    "rest_framework",
+    "django_filters",
+    "debug_toolbar",
 ]
 
 
@@ -69,6 +68,16 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+
+# THIRT_PARTY_MIDDLEWARE
+"""The Debug Toolbar is mostly implemented in a middleware. Add it to your MIDDLEWARE setting:"""  # noqa: E501
+
+MIDDLEWARE += [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+]
+
+
 
 ROOT_URLCONF = "apicore.urls"
 

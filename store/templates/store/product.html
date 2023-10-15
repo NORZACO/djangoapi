@@ -12,6 +12,7 @@
         <p class="price sale-price">
           Regular Price: <del>${{ product.get_price|floatformat:2 }}</del> <br/>
           <strong>SALE: ${{ product.current_price|floatformat:2 }}</strong>
+            <strong>SALE: ${{ product.price }}</strong>
         </p>
       {% else %}
         <p class="price price-regular">
