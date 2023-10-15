@@ -23,12 +23,12 @@ class ProductSerialiser(serializers.ModelSerializer):
     current_price = serializers.FloatField(read_only=True)
     description = serializers.CharField(min_length=2, max_length=200)
     # photo = serializers.ImageField(default=None, max_length=None, allow_empty_file=True, use_url=True)  # noqa: E501
-    cart_items = serializers.SerializerMethodField()
+    # cart_items = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         # fields = ("id", "name", "description", "price", "sale_start", "sale_end", "is_on_sale", "current_price", "cart_items")  # noqa: E501
-        fields = ("id", "name", "description", "price", "sale_start", "sale_end", "is_on_sale", "current_price", "cart_items")  # noqa: E501
+        fields = ("id", "name", "description", "price", "sale_start", "sale_end", "is_on_sale", "current_price")  # noqa: E501
 
         # AttributeError: 'ProductSerialiser' object has no attribute 'get_cart_items'
         def get_cart_items(self, instance):
