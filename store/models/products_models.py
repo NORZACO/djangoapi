@@ -77,6 +77,12 @@ class ShoppingCartItem(models.Model):
     )
     product = models.ForeignKey(Product, related_name="+", on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    cart_items = models.ForeignKey(
+        ShoppingCart,
+        related_name="shopping_cart_items",
+        related_query_name="shopping_cart_item",
+        on_delete=models.CASCADE,
+    )
 
     def total(self):
         return round(self.quantity * self.product.current_price())

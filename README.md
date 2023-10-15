@@ -5,6 +5,17 @@ This Django API is designed to handle [insert purpose here]. It is built using t
 
 To get started, make sure you have Python and Django installed on your machine. Then, clone this repository and navigate to the project directory in your terminal.
 
+### **Learning objectives**
+### **Creating a serializer**
+### **Working with API views**
+### **Filtering back ends**
+### **Enabling pagination**
+### **Executing CRUD operations**
+### **Managing serializer fields**
+### **Testing API views**
+
+
+
 Next, create a virtual environment and activate it:
 
 ```bash
