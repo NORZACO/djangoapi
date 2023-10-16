@@ -6,7 +6,7 @@ from rest_framework.generics import (
     # DestroyAPIView,
     RetrieveUpdateDestroyAPIView,
 )
-from store.serialisers.products_serialiser import ProductSerialiser
+from store.serialisers.products_serialiser import ProductSerializer
 from store.models.products_models import Product
 
 # filter
@@ -30,7 +30,7 @@ class ProductPagination(LimitOffsetPagination):
 
 class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerialiser
+    serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     # filter
     filterset_fields = ["name", "description"]
@@ -57,7 +57,7 @@ class ProductListAPIView(ListAPIView):
 
 # creaye product
 class ProductCreateAPIView(CreateAPIView):
-    serializer_class = ProductSerialiser
+    serializer_class = ProductSerializer
 
     # create method
     def create(self, request, *args, **kwargs):
@@ -90,7 +90,7 @@ class ProductCreateAPIView(CreateAPIView):
 # product retrieve update and destroy version 2
 class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerialiser
+    serializer_class = ProductSerializer
     lookup_field = "id"
 
     # delete method
@@ -127,7 +127,7 @@ class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 # update product
 class ProductUpdateAPIView(UpdateAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerialiser
+    serializer_class = ProductSerializer
     lookup_field = "id"
 
     # update method
