@@ -13,6 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
     current_price = serializers.FloatField(read_only=True)
     description = serializers.CharField(min_length=2, max_length=200)
     cart_items = serializers.SerializerMethodField()
+    put_anything = serializers.SerializerMethodField()
     # price = serializers.FloatField(min_value=1.00, max_value=100000)
     price = serializers.DecimalField(
         min_value=1.00, max_value=100000,
@@ -33,9 +34,13 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = (
             'id', 'name', 'description', 'price', 'sale_start', 'sale_end',
-            'is_on_sale', 'current_price', 'cart_items',
+            'is_on_sale', 'current_price', 'cart_items','put_anything'
         )
 
     def get_cart_items(self, instance):
+        items = ShoppingCartItem.objects.filter(product=instance)
+        return CartItemSerializer(items, many=True).data
+
+    def get_put_anything(self, instance):
         items = ShoppingCartItem.objects.filter(product=instance)
         return CartItemSerializer(items, many=True).data
