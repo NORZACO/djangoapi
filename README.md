@@ -1,7 +1,7 @@
 """
 README
 
-This Django API is designed to handle [insert purpose here]. It is built using the Django web framework and utilizes [insert any additional libraries or tools used].
+This Django API is designed to handle store products. It is built using the Django web framework 
 
 To get started, make sure you have Python and Django installed on your machine. Then, clone this repository and navigate to the project directory in your terminal.
 
