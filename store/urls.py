@@ -21,6 +21,11 @@ urlpatterns += [
         "api/v1/products/<int:id>/",
         product_views_api.ProductRetrieveUpdateDestroyAPIView.as_view(),
     ),
+    # stats
+    path(
+        "api/v1/products/<int:id>/stats/",
+        product_views_api.ProductStatsAPIView.as_view(),
+    ),
     # quizy
     path("api/v1/quizy/", quizy_views_api.QuizyListAPIView.as_view()),
 ]

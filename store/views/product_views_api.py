@@ -5,8 +5,15 @@ from rest_framework.generics import (
     UpdateAPIView,
     # DestroyAPIView,
     RetrieveUpdateDestroyAPIView,
+    GenericAPIView,
 )
-from store.serialisers.products_serialiser import ProductSerializer
+
+# response
+from rest_framework.response import Response
+from store.serialisers.products_serialiser import (
+    ProductSerializer,
+    ProductStateSerializer,
+)
 from store.models.products_models import Product
 
 # filter
@@ -149,4 +156,27 @@ class ProductUpdateAPIView(UpdateAPIView):
         return response
 
 
-# retrieve product
+# product state
+class ProductStatsAPIView(GenericAPIView):
+    lookup_field = "id"
+    serializer_class = ProductStateSerializer
+    queryset = Product.objects.all()
+
+    def get(self, request, format=None, id=None):
+        obj = self.get_object()  # noqa: F841
+        serializer = ProductStateSerializer(
+            {
+                "stats": {
+                    "2019-01-01": [
+                        4, 7, 12
+                    ],
+                    "2019-01-02": [
+                        6, 8, 11
+                    ],
+                    "2019-01-03": [
+                        5, 6, 13
+                    ],
+                }
+            }
+        )
+        return Response(serializer.data)

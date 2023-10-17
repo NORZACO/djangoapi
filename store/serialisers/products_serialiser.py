@@ -2,6 +2,7 @@ from rest_framework import serializers
 from store.models.products_models import Product, ShoppingCartItem
 
 class CartItemSerializer(serializers.ModelSerializer):
+    # only 100 product can needed
     quantity = serializers.IntegerField(min_value=1, max_value=100)
 
     class Meta:
@@ -14,7 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
     description = serializers.CharField(min_length=2, max_length=200)
     cart_items = serializers.SerializerMethodField()
     put_anything = serializers.SerializerMethodField()
-    # price = serializers.FloatField(min_value=1.00, max_value=100000)
+    price = serializers.FloatField(min_value=1.00, max_value=100000)
     price = serializers.DecimalField(
         min_value=1.00, max_value=100000,
         max_digits=None, decimal_places=2,
@@ -44,3 +45,15 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_put_anything(self, instance):
         items = ShoppingCartItem.objects.filter(product=instance)
         return CartItemSerializer(items, many=True).data
+    
+
+
+
+# product state serializer
+class ProductStateSerializer(serializers.Serializer):
+    stats = serializers.DictField(
+        child=serializers.ListField(
+            child=serializers.IntegerField(),
+        )
+    )
+

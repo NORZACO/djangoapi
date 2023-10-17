@@ -1,4 +1,6 @@
 
+# python manage.py shell
+
 # from rest_framework.renderers import JSONRenderer
 # import json
 # from store.models.products_models import ShoppingCart, ShoppingCartItem, Product

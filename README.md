@@ -42,6 +42,20 @@ Finally run the server:
 ```bash
 python manage.py runserver
 ```
+Cancel the running server so that you can create admin user
+```bash
+CTRL + C
+```
+<!-- create admin  -->
+Create admin user:
+```bash
+python manage.py createsuperuser
+Username (leave blank to use 'admin'):
+Email address: admin@gmail.com
+Password:
+Password (again):
+Superuser created successfully.
+```
 <!-- website -->
 This is a sample webiste showing product being added
 You should now be able to access the API at http://localhost:8000/
