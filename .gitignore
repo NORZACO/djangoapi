@@ -134,3 +134,5 @@ store/__pycache__
 media
 venv
 
+*sqlite3
+
