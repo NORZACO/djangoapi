@@ -1,6 +1,15 @@
 
 This Django API is designed to handle store products. It is built using the Django web framework 
 
+<!-- picture demo1.png -->
+DEMO 1
+![alt text](/demo1.png)
+DEMO 2
+![alt text](/demo2.png)
+DEMO 3
+![alt text](/demo3.png)
+
+
 To get started, make sure you have Python and Django installed on your machine. Then, clone this repository and navigate to the project directory in your terminal.
 
 **Learning objectives**
